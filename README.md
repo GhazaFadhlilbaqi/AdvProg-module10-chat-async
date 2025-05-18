@@ -13,3 +13,8 @@ cargo run --bin server
  cargo run --bin client
  ```
 After running, we can see from the screenshot above that when a client sends a message, the message will be received by the server, and then the message will be distributed to all clients connected to the server, including the client that sent the message. This happens because every client that connects to the server will be remembered by the server, and the server will wait until one of those clients sends a message to the server to be shared with all the clients connected to it.
+
+## Modifying ports
+To modify the port on the server, we need to change the ```TCPListener``` port number in the ```server.rs``` file. We also needed to change the port number in the ```client.rs``` file to match the server's port number. 
+
+The websocket protocol on the server side is not declared explicitly. On the server code, the port is binded to a ```TCPListener``` that assigns a process to listen for any TCP connection going through that port, after a connection is established, the server then creates a socket that is then handed over to the websocket handler. So the server doesn't exactly declares it explicitly but its implementing the websocket protocol specs through the ```tokio-websocket``` crate.
